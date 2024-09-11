@@ -1,33 +1,44 @@
 import React, { Fragment } from 'react';
 import { Menu, Popover, Transition } from '@headlessui/react';
-import { HiOutlineBell, HiOutlineSearch, HiOutlineChatAlt } from 'react-icons/hi';
+import { HiOutlineBell, HiOutlineSearch, HiOutlineChatAlt, HiOutlineMenu } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
-export default function Header({ isSidebarOpen }) {
+export default function Header({ isSidebarOpen, toggleSidebar }) {
   const navigate = useNavigate();
 
   return (
     <div
       className={classNames(
         'bg-white h-16 px-4 flex items-center border-b border-gray-200 justify-between',
-        // Adjust for small and medium screens, push content based on sidebar visibility
-        isSidebarOpen ? 'md:ml-60 ml-0' : 'ml-0',
+        isSidebarOpen ? 'md:ml-60' : 'ml-0',
         'transition-all duration-300 ease-in-out'
       )}
     >
-      {/* Search bar - hidden on smaller screens */}
-      <div className="relative flex-1 hidden lg:block">
-        <HiOutlineSearch fontSize={20} className="text-gray-400 absolute top-1/2 left-3 -translate-y-1/2" />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="text-sm focus:outline-none active:outline-none border border-gray-300 w-full h-10 pl-11 pr-4 rounded-sm"
-        />
-      </div>
+      {/* Menu button for small screens */}
+      <button
+        className="md:hidden text-gray-600 text-2xl"
+        onClick={toggleSidebar}
+      >
+        <HiOutlineMenu />
+      </button>
 
-      {/* Chat, Notifications, and User Profile */}
-      <div className="flex items-center gap-2">
+      {/* Header Right Section */}
+      <div className="flex items-center gap-4 ml-auto">
+        {/* Search bar */}
+        <div className="relative flex items-center w-full max-w-xs lg:max-w-md">
+          <HiOutlineSearch
+            fontSize={20}
+            className="text-gray-400 absolute top-1/2 left-3 -translate-y-1/2"
+          />
+          <input
+            type="text"
+            placeholder="Search..."
+            className="text-sm focus:outline-none active:outline-none border border-gray-300 w-full h-10 pl-11 pr-4 rounded-sm"
+          />
+        </div>
+
+        {/* Chat */}
         <Popover className="relative">
           {({ open }) => (
             <>
@@ -41,17 +52,17 @@ export default function Header({ isSidebarOpen }) {
               </Popover.Button>
               <Transition
                 as={Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
+                enter="transition ease-out duration-500"
+                enterFrom="opacity-0 translate-y-2"
                 enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
+                leave="transition ease-in duration-400"
                 leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
+                leaveTo="opacity-0 translate-y-2"
               >
                 <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
                   <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
                     <strong className="text-gray-700 font-medium">Messages</strong>
-                    <div className="mt-2 py-1 text-sm">This is messages panel.</div>
+                    <div className="mt-2 py-1 text-sm">This is the messages panel.</div>
                   </div>
                 </Popover.Panel>
               </Transition>
@@ -59,6 +70,7 @@ export default function Header({ isSidebarOpen }) {
           )}
         </Popover>
 
+        {/* Notifications */}
         <Popover className="relative">
           {({ open }) => (
             <>
@@ -72,17 +84,17 @@ export default function Header({ isSidebarOpen }) {
               </Popover.Button>
               <Transition
                 as={Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
+                enter="transition ease-out duration-500"
+                enterFrom="opacity-0 translate-y-2"
                 enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
+                leave="transition ease-in duration-400"
                 leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
+                leaveTo="opacity-0 translate-y-2"
               >
                 <Popover.Panel className="absolute right-0 z-10 mt-2.5 transform w-80">
                   <div className="bg-white rounded-sm shadow-md ring-1 ring-black ring-opacity-5 px-2 py-2.5">
                     <strong className="text-gray-700 font-medium">Notifications</strong>
-                    <div className="mt-2 py-1 text-sm">This is notification panel.</div>
+                    <div className="mt-2 py-1 text-sm">This is the notifications panel.</div>
                   </div>
                 </Popover.Panel>
               </Transition>
@@ -90,7 +102,7 @@ export default function Header({ isSidebarOpen }) {
           )}
         </Popover>
 
-        {/* User Profile Menu */}
+        {/* User Profile */}
         <Menu as="div" className="relative">
           <div>
             <Menu.Button className="ml-2 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-neutral-400">
@@ -105,10 +117,10 @@ export default function Header({ isSidebarOpen }) {
           </div>
           <Transition
             as={Fragment}
-            enter="transition ease-out duration-100"
+            enter="transition ease-out duration-500"
             enterFrom="transform opacity-0 scale-95"
             enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
+            leave="transition ease-in duration-400"
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
@@ -146,7 +158,7 @@ export default function Header({ isSidebarOpen }) {
                       active && 'bg-gray-100',
                       'active:bg-gray-200 rounded-sm px-4 py-2 text-gray-700 cursor-pointer focus:bg-gray-200'
                     )}
-                  > 
+                  >
                     Sign out
                   </div>
                 )}
