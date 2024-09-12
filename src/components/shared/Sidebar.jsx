@@ -90,7 +90,16 @@ function Sidebar() {
           className="fixed inset-0 bg-black opacity-50 z-30"
           onClick={toggleSidebar} // Close sidebar when overlay is clicked
         ></div>
-      )}
+        
+      )
+      }
+      <div
+        className={`transition-all duration-1000 ease-in-out ${
+          isOpen && "ml-48"
+        } p-6`}
+      >
+       
+      </div>
     </>
   );
 }
@@ -112,5 +121,6 @@ function SidebarLink({ item }) {
       <span className="text-xl">{item.icon}</span>
       <span>{item.label}</span>
     </Link>
+    
   );
 }

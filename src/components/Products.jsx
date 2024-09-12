@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 function Products() {
   return (
-    <div><p>Products</p>
-        <Link to ="/" className='underline'>go to Dashboard</Link>
+    <div>
+        <Link to ="/" className='underline'>go </Link>
 
     </div>
   )
