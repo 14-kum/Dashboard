@@ -21,7 +21,7 @@ function Sidebar() {
   useEffect(() => {
     const sidebar = document.getElementById("sidebar");
     if (sidebar) {
-      sidebar.style.transition = "transform 0.6s ease, opacity 0.6s ease"; // Slow and smooth transition
+      sidebar.style.transition = "transform 0.4 ease-in-out, opacity 0.4s ease-in-out"; // Slow and smooth transition
       if (isOpen) {
         sidebar.style.transform = "translateX(0)"; // Slide in
         sidebar.style.opacity = "1"; // Make it fully visible
